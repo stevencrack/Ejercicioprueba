@@ -12,5 +12,7 @@ yr = np.exp(-x)
 e = np.abs((yr - y)/yr)*100
 
 plt.figure()
+
 plt.semilogy(x, e, label='Error')
+
 plt.savefig('error1.pdf')
