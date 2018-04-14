@@ -18,8 +18,8 @@ int main(){
 	double N = 10/h;
 
   for(int i=0; i<N; i++){
-    z = z + valor_k(x, y, h);
-    y = y + valor_k2(z, h);
+    z = z + k(x, y, h);
+    y = y + k_2(z, h);
     x = x+h;
 
     std::cout << x << " " << y << std::endl;
@@ -50,4 +50,3 @@ double k_2(double z,  double h){
   double k4 = f2(z+h*k3);
 
   return (h/6)*(k1+2*k2+2*k3+k4);
-}
