@@ -2,8 +2,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 data = np.loadtxt('datosrk2.txt')
+
 x = data[:,0]
+
 y = data[:,1]
+
 h = 0.1
 
 yr = np.cos(x)
