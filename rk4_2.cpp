@@ -50,3 +50,4 @@ double k_2(double z,  double h){
   double k4 = f2(z+h*k3);
 
   return (h/6)*(k1+2*k2+2*k3+k4);
+}
