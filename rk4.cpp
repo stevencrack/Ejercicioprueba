@@ -1,70 +1,53 @@
 #include <iostream>
 
-using namespace std;
+double k(double x, double y, double h);
+double k_2(double z, double h);
+double funcion1(double x, double y);
+double funcion2(double z);
 
+int main(){
+ 
+	double x = 0;
 
-double dydx(double x, double y, double z);
-double dzdx(double x, double y, double z);
-void rk4(double *x, double *y, double *z, double h);
+	double y = 1;
 
-double dydx(double x, double y, double z){
-  return z;
+	double z = 0;
+
+	double h = 0.1;
+
+	double N = 10/h;
+
+  for(int i=0; i<N; i++){
+    z = z + valor_k(x, y, h);
+    y = y + valor_k2(z, h);
+    x = x+h;
+
+    std::cout << x << " " << y << std::endl;
+  }
 }
 
-double dzdx(double x, double y, double z){
+double funcion1(double x, double y){
   return -y;
 }
 
+double funcion2(double z){
+  return z;
+}
+double k(double x, double y, double h){
+	double k1 = funcion1(x, y);
+	double k2 = funcion1(x + h/2, y+(h/2)*k1);
+	double k3 = funcion1(x + h/2, y+(h/2)*k2);
+	double k4 = funcion1(x + h, y+h*k3);
 
-void rk4(double *x, double *y, double *z, double h){
-
-  double x_in, y_in, z_in;
-
-  double ky_1, ky_2, ky_3, ky_4;
-
-  double kz_1, kz_2, kz_3, kz_4;
-
-  x_in = *x;
-  y_in = *y;
-  z_in = *z;
-
-  ky_1 = dydx(x_in, y_in, z_in);
-  kz_1 = dzdx(x_in, y_in, z_in);
-
-  ky_2 = dydx(x_in + h/2, y_in + ky_1 * h/2, z_in + kz_1 * h/2);
-  kz_2 = dzdx(x_in + h/2, y_in + ky_1 * h/2, z_in + kz_1 * h/2);
-
-  ky_3 = dydx(x_in + h/2, y_in + ky_2 * h/2, z_in + kz_2 * h/2);
-  kz_3 = dzdx(x_in + h/2, y_in + ky_2 * h/2, z_in + kz_2 * h/2);
-
-  ky_4 = dydx(x_in + h, y_in + ky_3 * h, z_in + kz_3 * h);
-  kz_4 = dzdx(x_in + h, y_in + ky_3 * h, z_in + kz_3 * h);
-
-  x_in = x_in + h;
-  y_in = y_in + h * (ky_1 + 2*ky_2 + 2*ky_3 + ky_4)/6.0;
-  z_in = z_in + h * (kz_1 + 2*kz_2 + 2*kz_3 + kz_4)/6.0;
-
-  *x = x_in;
-  *y = y_in;
-  *z = z_in;
+  return (h/6)*(k1+2*k2+2*k3+k4);
 }
 
-int main(){
-  double x, y, z, h;
-  double delta_x, delta_y, delta_z;
-  
-  h = 0.1;
- 
-  z = 0.0;
 
-  y = 1.0;
+double k_2(double z,  double h){
+  double k1 = f2(z);
+  double k2 = f2(z+(h/2)*k1);
+  double k3 = f2(z+(h/2)*k2);
+  double k4 = f2(z+h*k3);
 
-  x = 0.0;
-  while(x<10.0){
-    cout << x << " " << y << " " << z << endl;
-    rk4(&x, &y, &z, h);
-  }
-
-
-  return 0;
+  return (h/6)*(k1+2*k2+2*k3+k4);
 }
