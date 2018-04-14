@@ -16,7 +16,7 @@ int main(){
     x = x+h;
 
     std::cout << x << " " << y << std::endl;
-  }
+  	}
 }
 
 double funcion(double x, double y){
